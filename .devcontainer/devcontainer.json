@@ -1,0 +1,20 @@
+{ "name": "Stats",
+  "dockerFile": "Dockerfile",
+  "hostRequirements": {
+    "cpus": 1
+  },
+  "waitFor": "onCreateCommand",
+  "updateContentCommand": "echo 'Updating content' && pip install -r requirements.txt",
+  "customizations": {
+    "codespaces": {
+      "openFiles": []
+    },
+    "vscode": {
+      "extensions": [
+        "ms-toolsai.jupyter",
+        "ms-python.python",
+        "github.copilot"
+      ]
+    }
+  }
+}
