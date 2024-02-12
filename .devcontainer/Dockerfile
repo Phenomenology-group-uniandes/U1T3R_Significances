@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM rootproject/root:6.30.04-ubuntu22.04
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 RUN apt update && apt-get install -y tzdata
