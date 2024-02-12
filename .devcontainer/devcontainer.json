@@ -16,6 +16,7 @@
         "ms-python.isort",
         "ms-python.black-formatter",
         "ms-python.flake8",
+        "pkief.material-icon-theme",
         "github.copilot"
       ]
     }
