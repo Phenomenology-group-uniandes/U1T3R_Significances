@@ -3,3 +3,5 @@ scipy
 matplotlib
 statsmodels
 jupyter
+scikit-learn
+xgboost
