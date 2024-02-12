@@ -5,3 +5,5 @@ statsmodels
 jupyter
 scikit-learn
 xgboost
+pandas
+pyarrow
