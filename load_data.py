@@ -1,6 +1,8 @@
 # Load the data
-import numpy as np
 import os
+import pickle
+
+import numpy as np
 
 xu_masses = [500, 750, 1000, 1500, 2000]  # GeV
 phi_masses = [1, 5, 10, 50, 100, 325]  # GeV
@@ -24,4 +26,7 @@ data = {
     for xu_mass in xu_masses
     for phi_mass in phi_masses
 }
+
+with open(os.path.join(data_path, "histograms.pkl"), "rb") as f:
+    histograms = pickle.load(f)
 print("Done!")
