@@ -29,4 +29,7 @@ data = {
 
 with open(os.path.join(data_path, "histograms.pkl"), "rb") as f:
     histograms = pickle.load(f)
+
+with open(os.path.join(data_path, "cross_sections.pkl"), "rb") as f:
+    cross_sections = pickle.load(f)
 print("Done!")
