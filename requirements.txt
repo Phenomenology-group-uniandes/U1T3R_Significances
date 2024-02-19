@@ -2,6 +2,7 @@ numpy
 scipy
 matplotlib
 statsmodels
+seaborn
 jupyter
 scikit-learn
 xgboost
