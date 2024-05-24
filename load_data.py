@@ -4,7 +4,7 @@ import pickle
 
 import numpy as np
 
-xu_masses = [500, 750, 1000, 1500, 2000]  # GeV
+xu_masses = [500, 750, 1000, 1500, 2000, 2500]  # GeV
 phi_masses = [1, 5, 10, 50, 100, 325]  # GeV
 mc_names = ["signal", "ttbarmumu", "ttbarmumumunu"]
 

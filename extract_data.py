@@ -1,6 +1,6 @@
 import os
 
-xu_masses = [500, 750, 1000, 1500, 2000]
+xu_masses = [500, 750, 1000, 1500, 2000, 2500]
 phi_masses = [1, 5, 10, 50, 100, 325]
 mc_names = ["signal", "ttbarmumu", "ttbarmumumunu"]
 data_path = os.path.join(os.getcwd(), "data")
