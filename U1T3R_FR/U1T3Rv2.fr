@@ -1,0 +1,403 @@
+(***************************************************************************************************************)
+(******                       This is the FeynRules model-file for the SMxU(1)_T3R                        ******)
+(******                                                                                                   ******)
+(******     Authors: B. Dutta, S. Ghosh, A. Gurrola D. Julson, T. Kamon J. Kumar                          ******)
+(******                                                                                                   ******)
+(****** Choose whether Feynman gauge is desired.                                                          ******)
+(****** If set to False, unitary gauge is assumed.                                                          ****)
+(****** Feynman gauge is especially useful for CalcHEP/CompHEP where the calculation is 10-100 times faster. ***)
+(****** Feynman gauge is not supported in MadGraph and Sherpa.                                              ****)
+(***************************************************************************************************************)
+
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+M$ModelName = "U(1)_T3R";
+
+M$Information = {
+  Authors      -> {"B. Dutta, S. Ghosh, A. Gurrola, D. Julson, T. Kamon, J. Kumar"}, 
+  Version      -> "2.0",
+  Date         -> "27. 01. 2022",
+  Institutions -> {"TAMU, KIAS, VU, VU, TAMU, UH"},
+  Emails       -> {"ghosh@kias.re.kr"}
+};
+
+FeynmanGauge = True;
+
+
+(* ***************************** *)
+(* *****  New Parameters   ***** *)
+(* ***************************** *)
+M$Parameters = {
+(* Mass parameters *)
+
+mXu == { 
+	ParameterType -> External,
+	Value         -> 500,
+	TeX            -> Subscript[m,Xu]
+
+	},
+
+mXd == {
+	 ParameterType -> External,
+	Value          -> 500,
+	TeX            -> Subscript[m,Xd]
+	},
+
+mXl == {
+	 ParameterType -> External,
+	Value          -> 500,
+	TeX            -> Subscript[m,Xl]
+	},
+
+mXv == { 
+	ParameterType -> External,
+	Value         -> 500,
+	TeX           -> Subscript[m,Xv]
+	},
+
+mpip == {
+	ParameterType -> External,
+	Value         -> 0.2,
+	Tex           -> Subscript[m,pip]
+	},
+
+(* Yukawa couplings *)
+
+lamLu =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Lu]
+         },
+
+lamLd =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Ld]
+         },
+
+lamLl =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Ll]
+         },
+
+lamLv =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Lv]
+         },
+
+lamRu =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Ru]
+         },
+
+lamRd =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Rd]
+         },
+
+lamRl =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Rl]
+         },
+
+lamRv =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Rv]
+         },
+
+(*  vev of phi *)
+
+pivev =={
+	ParameterType      -> External,
+	Value		   -> 10,
+	InteractionOrder   -> {NP, 1},
+	TeX                -> Subscript[v,pi]
+         },
+
+ (*  mixing angle *)
+
+thetauL =={
+	ParameterType      -> External,
+	Value              -> 1,
+	InteractionOrder   -> {NP, 1},
+	TeX                -> Subscript[theta,uL]
+         },
+
+thetauR =={
+	ParameterType      -> Internal,
+	Value              -> 1,
+	InteractionOrder   -> {NP, 1},
+	TeX                -> Subscript[theta,uR]
+         },
+
+thetadL =={
+	ParameterType      -> External,
+	Value              -> 1,
+	InteractionOrder   -> {NP, 1},
+	TeX                -> Subscript[theta,dL]
+         },	
+thetadR =={
+	ParameterType      -> Internal,
+	Value              -> 1,
+	InteractionOrder   -> {NP, 1},
+	TeX                -> Subscript[theta,dR]
+         },
+thetalL =={
+	ParameterType      -> External,
+	Value              -> 1,
+	InteractionOrder   -> {NP, 1},
+	TeX                -> Subscript[theta,lL]
+         },	
+
+thetalR =={
+	ParameterType      -> Internal,
+	Value              -> 1,
+	InteractionOrder   -> {NP, 1},
+	TeX                -> Subscript[theta,lR]
+         },
+
+(* new couplings *)
+
+C1Lu =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[C,1Lu]
+         },
+C1Ld =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[C,1Ld]
+         },
+C1Ll =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[C,1Ll]
+         },
+C2Lu =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[C,2Lu]
+         },
+C2Ld =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[C,2Ld]
+         },
+C2Ll =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[C,2Ll]
+         },
+C1Ru =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[C,1Ru]
+         },
+C1Rd =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[C,1Rd]
+         },
+C1Rl =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[C,1Rl]
+         },
+C2Ru =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[C,2Ru]
+         },
+C2Rd =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[C,2Rd]
+         },
+C2Rl =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[C,2Rl]
+         },
+
+ypgg =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[y,pgg]
+         }
+
+ 
+}
+
+
+	
+
+
+(* ***************************** *)
+(* *****  New   Fields     ***** *)
+(* ***************************** *)
+
+M$ClassesDescription = {
+(* New Heavy Fermions *)
+
+F[20] == {
+	ClassName      -> Xu,
+	SelfConjugate  -> False,
+	Indices        -> {Index[Colour]},
+	QuantumNumbers -> {Q -> 2/3},
+	Mass           -> {MXu, 500},
+        Width          -> {WXu,1}
+	},
+
+F[21] == {
+	ClassName      -> Xd,
+	SelfConjugate  -> False,
+	Indices        -> {Index[Colour]},
+	QuantumNumbers -> {Q -> -1/3},
+	Mass           -> {MXd, 500},
+        Width          -> {WXd,1}
+	},
+
+F[22] == {
+	ClassName      -> Xl,
+	SelfConjugate  -> False,
+	Indices        -> {},
+	QuantumNumbers -> { Q -> -1, LeptonNumber-> 1},
+	Mass           -> {MXl, 500},
+        Width          -> {WXl,1}
+	},
+
+F[23] == {
+	ClassName      -> Xv,
+	SelfConjugate  -> False,
+	Indices        -> {},
+	QuantumNumbers -> {Q -> 0, LeptonNumber -> 1},
+	Mass           -> {MXv, 500},
+        Width          -> {WXv,1}
+	},
+ 
+
+(* Right Handed Neutrinos *)
+
+F[24] == {
+	ClassName      -> vR,
+	SelfConjugate  -> False,
+	Indices        -> {},
+	QuantumNumbers -> {Q -> 0, LeptonNumber -> 1},
+	Mass           -> .1,
+	Width          -> {WvR,1}
+	},
+
+
+(* New Scalar Field *)
+S[20] =={
+	ClassName     -> pip,
+        SelfConjugate -> True,
+        Indices       -> {},
+        Mass          -> .2,
+	Width         -> {Wphip,1}
+	},
+S[21] == {
+	ClassName     -> piG,
+        SelfConjugate -> True,
+        Indices       -> {},
+	Unphysical    -> True
+	},
+
+S[22] =={
+	ClassName     -> pi,
+        SelfConjugate -> False,
+        Indices       -> {},
+        Unphysical    -> True,
+	Definitions   -> {pi -> pip/Sqrt[2]}
+	}
+}
+
+(* ******************************* *)
+(* *****   New Lagrangians   ***** *)
+(* ******************************* *)
+
+Lnewgauge := gs*(Xubar.Ga[mu].T[m].Xu+Xdbar.Ga[mu].T[m].Xd).G[mu,m] + ee*(2/3)*Xubar.Ga[mu].Xu.A[mu]\
+		+ ee*(-1/3)*Xdbar.Ga[mu].Xd.A[mu]+ee*(-1)*Xlbar.Ga[mu].Xl.A[mu]\
+	+(gw/Sqrt[2])*Cos[thetauL]*Sin[thetadL] tbar. Ga[mu]. ProjM. Xd. W[mu]\
+	+HC[(gw/Sqrt[2])*Cos[thetauL]*Sin[thetadL] tbar. Ga[mu]. ProjM. Xd. W[mu]]\
+	+(gw/Sqrt[2])*Cos[thetadL]*Sin[thetauL] Xubar. Ga[mu]. ProjM. b. W[mu]\
+	+HC[(gw/Sqrt[2])*Cos[thetadL]*Sin[thetauL] Xubar. Ga[mu]. ProjM. b. W[mu]]\
+	-(gw/Sqrt[2])*Cos[thetauL]*Cos[thetadL] tbar. Ga[mu]. ProjM. b. W[mu]\
+	-HC[(gw/Sqrt[2])*Cos[thetauL]*Cos[thetadL] tbar. Ga[mu]. ProjM. b. W[mu]]\
+	-(gw/Sqrt[2])*Sin[thetauL]*Sin[thetadL] Xubar. Ga[mu]. ProjM. Xd. W[mu]\
+	-HC[(gw/Sqrt[2])*Sin[thetauL]*Sin[thetadL] Xubar. Ga[mu]. ProjM. Xd. W[mu]]\
+	+Xubar.Ga[mu].((-ee*((Sin[thetauL]*Cos[thetauL])/(sw*cw))*(1/2-2/3*sw2)).ProjM+(-ee*((Sin[thetauR]*Cos[thetauR])/(sw*cw))*(-2/3*sw2)).ProjP).t.Z[mu];
+
+
+
+
+
+
+LyukH := Xubar. ((C1Lu+C2Lu).ProjM+(C1Lu-C2Lu).ProjP). t. H + Xdbar. ((C1Ld+C2Ld).ProjM+(C1Ld-C2Ld).ProjP). b. H\
+	+Xlbar. ((C1Ll+C2Ll).ProjM+(C1Ll-C2Ll).ProjP). mu. H\
+	+HC[Xubar. ((C1Lu+C2Lu).ProjM+(C1Lu-C2Lu).ProjP). t. H]+HC[Xdbar. ((C1Ld+C2Ld).ProjM+(C1Ld-C2Ld).ProjP). b. H]\
+	+HC[Xlbar. ((C1Ll+C2Ll).ProjM+(C1Ll-C2Ll).ProjP). mu. H];
+
+
+
+Lyukpi := (MT/(Sqrt[2]*pivev)) tbar.t.pi+(MB/(Sqrt[2]*pivev)) bbar.b.pi+(MMU/(Sqrt[2]*pivev)) mubar.mu.pi\
+	+(MTA/(Sqrt[2]*pivev)) tabar.ta.pi + tbar. ((C1Ru+C2Ru).ProjM+(C1Ru-C2Ru).ProjP). Xu.pi\
+	+HC[tbar. ((C1Ru+C2Ru).ProjM+(C1Ru-C2Ru).ProjP). Xu.pi]\
+	+ bbar. ((C1Rd+C2Rd).ProjM+(C1Rd-C2Rd).ProjP). Xd.pi+HC[bbar. ((C1Rd+C2Rd).ProjM+(C1Rd-C2Rd).ProjP). Xd.pi]\
+	+mubar. ((C1Rl+C2Rl).ProjM+(C1Rl-C2Rl).ProjP). Xl.pi+HC[mubar. ((C1Rl+C2Rl).ProjM+(C1Rl-C2Rl).ProjP). Xl.pi];
+
+
+Lpgg := ypgg pi. FS[A, mu, nu]. FS[A, mu, nu];
+
+
+	
+
+(* Combine Everything *)
+
+Lfull :=LSM + Lnewgauge + LyukH + Lyukpi + Lpgg;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,311 @@
+(***************************************************************************************************************)
+(******                       This is the FeynRules model-file for the SMxU(1)_T3R                        ******)
+(******                                                                                                   ******)
+(******     Authors: B. Dutta, S. Ghosh, D. Julson, J. Kumar                                              ******)
+(******                                                                                                   ******)
+(****** Choose whether Feynman gauge is desired.                                                          ******)
+(****** If set to False, unitary gauge is assumed.                                                          ****)
+(****** Feynman gauge is especially useful for CalcHEP/CompHEP where the calculation is 10-100 times faster. ***)
+(****** Feynman gauge is not supported in MadGraph and Sherpa.                                              ****)
+(***************************************************************************************************************)
+
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+M$ModelName = "U(1)_T3R";
+
+M$Information = {
+  Authors      -> {"B. Dutta, S. Ghosh, D. Julson, J. Kumar"}, 
+  Version      -> "1.0",
+  Date         -> "17. 07. 2020",
+  Institutions -> {"TAMU, VU, UH"},
+  Emails       -> {"ghosh@tamu.edu"}
+};
+
+FeynmanGauge = True;
+
+
+(* ***************************** *)
+(* *****  New Parameters   ***** *)
+(* ***************************** *)
+M$Parameters = {
+(* Mass parameters *)
+
+mXu == { 
+	ParameterType -> External,
+	Value         -> 500,
+	TeX            -> Subscript[m,Xu]
+
+	},
+
+mXd == {
+	 ParameterType -> External,
+	Value          -> 500,
+	TeX            -> Subscript[m,Xd]
+	},
+
+mXl == {
+	 ParameterType -> External,
+	Value          -> 500,
+	TeX            -> Subscript[m,Xl]
+	},
+
+mXv == { 
+	ParameterType -> External,
+	Value         -> 500,
+	TeX           -> Subscript[m,Xv]
+	},
+
+mpip == {
+	ParameterType -> External,
+	Value         -> 0.2,
+	Tex           -> Subscript[m,pip]
+	},
+
+(* Yukawa couplings *)
+
+lamLu =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Lu]
+         },
+
+lamLd =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Ld]
+         },
+
+lamLl =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Ll]
+         },
+
+lamLv =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Lv]
+         },
+
+lamRu =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Ru]
+         },
+
+lamRd =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Rd]
+         },
+
+lamRl =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Rl]
+         },
+
+lamRv =={
+	ParameterType      -> External,
+          Value            -> 1,
+          InteractionOrder -> {NP, 1},
+	TeX                -> Subscript[lam,Rv]
+         },
+
+pvev =={
+	ParameterType      -> External,
+	Value		   -> 10,
+	InteractionOrder   -> {NP, 1},
+	TeX                -> Subscript[vev,p]
+         },
+
+thetaL =={
+	ParameterType      -> Internal,
+	Value              -> ArcTan[-(mXu^2+(lamLu*vev)^2-(lamRu*pvev)^2-Sqrt[(mXu^2+(lamLu*vev)^2-(lamRu*pvev)^2)^2+4*mXu^2*(lamLu*vev)^2])/(2*mXu*lamLu*vev)],
+	InteractionOrder   -> {NP, 1},
+	TeX                -> Subscript[theta,L]
+         },
+
+thetaR =={
+	ParameterType      -> Internal,
+	Value              -> ArcTan[-(mXu^2-(lamLu*vev)^2+(lamRu*pvev)^2-Sqrt[(mXu^2-(lamLu*vev)^2+(lamRu*pvev)^2)^2+4*mXu^2*(lamRu*pvev)^2])/(2*mXu*lamRu*pvev)],
+	InteractionOrder   -> {NP, 1},
+	TeX                -> Subscript[theta,R]
+         }	 
+}
+
+
+	
+
+
+(* ***************************** *)
+(* *****  New   Fields     ***** *)
+(* ***************************** *)
+
+M$ClassesDescription = {
+(* New Heavy Fermions *)
+
+F[20] == {
+	ClassName      -> Xu,
+	SelfConjugate  -> False,
+	Indices        -> {Index[Colour]},
+	QuantumNumbers -> {Q -> 2/3},
+	Mass           -> {MXu, 500},
+        Width          -> {WXu,1}
+	},
+
+F[21] == {
+	ClassName      -> Xd,
+	SelfConjugate  -> False,
+	Indices        -> {Index[Colour]},
+	QuantumNumbers -> {Q -> -1/3},
+	Mass           -> {MXd, 500},
+        Width          -> {WXd,1}
+	},
+
+F[22] == {
+	ClassName      -> Xl,
+	SelfConjugate  -> False,
+	Indices        -> {},
+	QuantumNumbers -> { Q -> -1, LeptonNumber-> 1},
+	Mass           -> {MXl, 500},
+        Width          -> {WXl,1}
+	},
+
+F[23] == {
+	ClassName      -> Xv,
+	SelfConjugate  -> False,
+	Indices        -> {},
+	QuantumNumbers -> {Q -> 0, LeptonNumber -> 1},
+	Mass           -> {MXv, 500},
+        Width          -> {WXv,1}
+	},
+ 
+
+(* Right Handed Neutrinos *)
+
+F[24] == {
+	ClassName      -> vR,
+	SelfConjugate  -> False,
+	Indices        -> {},
+	QuantumNumbers -> {Q -> 0, LeptonNumber -> 1},
+	Mass           -> .1,
+	Width          -> {WvR,1}
+	},
+
+
+(* New Scalar Field *)
+S[20] =={
+	ClassName     -> pip,
+        SelfConjugate -> True,
+        Indices       -> {},
+        Mass          -> .2,
+	Width         -> {Wphip,1}
+	},
+S[21] == {
+	ClassName     -> piG,
+        SelfConjugate -> True,
+        Indices       -> {},
+	Unphysical    -> True
+	},
+
+S[22] =={
+	ClassName     -> pi,
+        SelfConjugate -> False,
+        Indices       -> {},
+        Unphysical    -> True,
+	Definitions   -> {pi -> pip}
+	}
+}
+
+(* ******************************* *)
+(* *****   New Lagrangians   ***** *)
+(* ******************************* *)
+
+Lkinetic := gs*(Xubar.Ga[mu].T[m].Xu+Xdbar.Ga[mu].T[m].Xd).G[mu,m] + ee*(2/3)*Xubar.Ga[mu].Xu.A[mu]\
+		+ ee*(-1/3)*Xdbar.Ga[mu].Xd.A[mu]+ee*(-1)*Xlbar.Ga[mu].Xl.A[mu]\
+		-mXu Xubar.Xu-mXd Xdbar.Xd-mXl Xlbar.Xl-mXv Xvbar.Xv ;
+
+
+
+
+
+Lyuk1st :=-lamLu  Xubar. ProjM. d. (-I GP) +lamLu  Xubar. ProjM. u. (vev + H+I G0) \
+	+HC[-lamLu  Xubar. ProjM. d. (-I GP) +lamLu  Xubar. ProjM. u. (vev + H+I G0)] \
+	-lamLd  Xdbar. ProjM. u. I GPbar -lamLd  Xdbar. ProjM. d. (vev + H-I G0) \
+	+HC[-lamLd  Xdbar. ProjM. u. I GPbar -lamLd  Xdbar. ProjM. d. (vev + H-I G0)]\
+	-lamLl Xlbar. ProjM. ve . (I GPbar)-lamLl Xlbar. ProjM. e. (vev + H-I G0) \
+	+HC[-lamLl Xlbar. ProjM. ve . (I GPbar)-lamLl Xlbar. ProjM. e. (vev + H-I G0)]\
+	-lamLv Xvbar. ProjM. e. (-IGP) +lamLv Xvbar. ProjM. ve.(vev + H+I G0)\
+	+HC[-lamLv Xvbar. ProjM. e. (-IGP) +lamLv Xvbar. ProjM. ve.(vev + H+I G0)] \
+	-lamRu pibar Xubar. ProjP. uR -lamRd pi Xdbar. ProjP. dR \
+	-lamRl pi Xlbar. ProjP. lR -lamRv pibar Xvbar. ProjP. vR\
+	+HC[-lamRu pibar Xubar. ProjP. uR -lamRd pi Xdbar. ProjP. dR]\
+	+HC[-lamRl pi Xlbar. ProjP. lR -lamRv pibar Xvbar. ProjP. vR];
+
+Lyuk3rd :=-lamLu  Xubar. ProjM. b. (-I GP) +lamLu  Xubar. ProjM. t. (vev + H+I G0) \
+	+HC[-lamLu  Xubar. ProjM. b. (-I GP) +lamLu  Xubar. ProjM. t. (vev + H+I G0)] \
+	-lamLd  Xdbar. ProjM. t. I GPbar -lamLd  Xdbar. ProjM. b. (vev + H-I G0) \
+	+HC[-lamLd  Xdbar. ProjM. t. I GPbar -lamLd  Xdbar. ProjM. b. (vev + H-I G0)]\
+	-lamLl Xlbar. ProjM. vt . (I GPbar)-lamLl Xlbar. ProjM. ta. (vev + H-I G0) \
+	+HC[-lamLl Xlbar. ProjM. vt . (I GPbar)-lamLl Xlbar. ProjM. ta. (vev + H-I G0)]\
+	-lamLv Xvbar. ProjM. ta. (-IGP) +lamLv Xvbar. ProjM. vt.(vev + H+I G0)\
+	+HC[-lamLv Xvbar. ProjM. ta. (-IGP) +lamLv Xvbar. ProjM. vt.(vev + H+I G0)] \
+	-lamRu pibar Xubar. ProjP. t -lamRd pi Xdbar. ProjP. b \
+	-lamRl pi Xlbar. ProjP. ta -lamRv pibar Xvbar. ProjP. v\
+	+HC[-lamRu pibar Xubar. ProjP. t -lamRd pi Xdbar. ProjP. b]\
+	+HC[-lamRl pi Xlbar. ProjP. ta -lamRv pibar Xvbar. ProjP. v];
+
+Lphi3rd := -lamLl*lamRl*(vev/mXl)*pi. tabar. ta  -lamLu*lamRu*(vev/mXu)*pi. tbar. t \
+	-lamLd*lamRd*(vev/mXd)*pi. bbar. b\
+	 - (((lamLl*lamRl*(vev/mXl)*aEW)/(6*Pi*MTA))*(((6*MTA^2)/mpip^2)*(1-(1-((4*MTA^2)/mpip^2))*(ArcSin[mpip/(2*MTA)])^2))\
+	+(((3*lamLu*lamRu*(vev/mXu)*aEW)/(6*Pi*MT))*(((6*MT^2)/mpip^2)*(1-(1-((4*MT^2)/mpip^2))*(ArcSin[mpip/(2*MT)])^2)))\
+	+(((3*lamLd*lamRd*(vev/mXd)*aEW)/(6*Pi*MB))*(((6*MB^2)/mpip^2)*(1-(1-((4*MB^2)/mpip^2))*(ArcSin[mpip/(2*MB)])^2))))\
+	* pi. FS[A, mu, nu]. FS[A, mu, nu];
+
+
+Lphi2nd := -lamLl*lamRl*(vev/mXl)*pi. mubar. mu  -lamLu*lamRu*(vev/mXu)*pi. cbar. c \
+	-lamLd*lamRd*(vev/mXd)*pi. sbar. s\
+	 - (((lamLl*lamRl*(vev/mXl)*aEW)/(6*Pi*MMU))*(((6*MMU^2)/mpip^2)*(1-(1-((4*MMU^2)/mpip^2))*(ArcSin[mpip/(2*MMU)])^2))\
+	+(((3*lamLu*lamRu*(vev/mXu)*aEW)/(6*Pi*MC))*(((6*MC^2)/mpip^2)*(1-(1-((4*MC^2)/mpip^2))*(ArcSin[mpip/(2*MC)])^2)))\
+	+(((3*lamLd*lamRd*(vev/mXd)*aEW)/(6*Pi*MS))*(((6*MS^2)/mpip^2)*(1-(1-((4*MS^2)/mpip^2))*(ArcSin[mpip/(2*MS)])^2))))\
+	* pi. FS[A, mu, nu]. FS[A, mu, nu];
+
+	
+
+(* Combine Everything *)
+
+Lfull :=LSM + Lkinetic + Lyuk3rd + Lphi3rd + Lphi2nd;
+
+
+
+
+(*
+
+(((lamLl*lamRl*(vev/mXl)*aEW)/(6*Pi*MTA))*(((6*MTA^2)/mpip^2)*(1-(1-((4*MTA^2)/mpip^2))*(ArcSin[mpip/(2*MTA)])^2))\
++(((3*lamLu*lamRu*(vev/mXu)*aEW)/(6*Pi*MT))*(((6*MT^2)/mpip^2)*(1-(1-((4*MT^2)/mpip^2))*(ArcSin[mpip/(2*MT)])^2)))\
++(((3*lamLd*lamRd*(vev/mXd)*aEW)/(6*Pi*MB))*(((6*MB^2)/mpip^2)*(1-(1-((4*MB^2)/mpip^2))*(ArcSin[mpip/(2*MB)])^2))))\
+* pi. FS[A, mu, nu]. FS[A, mu, nu]
+
+*)
+
+
+
+
+
+
+
+
+
+
+
+
+
