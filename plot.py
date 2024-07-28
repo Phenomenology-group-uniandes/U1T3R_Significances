@@ -3,9 +3,82 @@ import numpy as np
 import pandas as pd
 from matplotlib.ticker import LogLocator
 
+_sm_fermions = {
+    "tops": {
+        "mass": 172.76,
+        "charge": 2 / 3,
+        "baryon_number": 1 / 3,
+        "lepton_number": 0,
+    },
+    "bottoms": {
+        "mass": 4.18,
+        "charge": -1 / 3,
+        "baryon_number": 1 / 3,
+        "lepton_number": 0,
+    },
+    "taus": {
+        "mass": 1.77686,
+        "charge": -1,
+        "baryon_number": 0,
+        "lepton_number": 1,
+    },
+    "charms": {
+        "mass": 1.27,
+        "charge": 2 / 3,
+        "baryon_number": 1 / 3,
+        "lepton_number": 0,
+    },
+    "stranges": {
+        "mass": 0.096,
+        "charge": -1 / 3,
+        "baryon_number": 1 / 3,
+        "lepton_number": 0,
+    },
+    "muons": {
+        "mass": 0.105658,
+        "charge": -1,
+        "baryon_number": 0,
+        "lepton_number": 1,
+    },
+    "ups": {
+        "mass": 0.0023,
+        "charge": 2 / 3,
+        "baryon_number": 1 / 3,
+        "lepton_number": 0,
+    },
+    "downs": {
+        "mass": 0.0048,
+        "charge": -1 / 3,
+        "baryon_number": 1 / 3,
+        "lepton_number": 0,
+    },
+    "electrons": {
+        "mass": 0.000511,
+        "charge": -1,
+        "baryon_number": 0,
+        "lepton_number": 1,
+    },
+    # "neutrino_e": {"mass": 0, "charge": 0, "baryon_number": 0, "lepton_number": 1},
+    # "neutrino_mu": {"mass": 0, "charge": 0, "baryon_number": 0, "lepton_number": 1},
+    # "neutrino_tau": {"mass": 0, "charge": 0, "baryon_number": 0, "lepton_number": 1},
+}
+
+df_sm_fermions = pd.DataFrame(_sm_fermions).T
+
 
 def width_phi_to_gauge(phi_mass: float, gauge_mass: float, vev: float = 10) -> float:
+    """
+    Calculate the partial width of the phi' boson decaying into U(1)T3R gauge boson.
 
+    Parameters:
+    - phi_mass (float): The mass of the phi' boson.
+    - gauge_mass (float): The mass of the gauge boson.
+    - vev (float): The vacuum expectation value (default: 10).
+
+    Returns:
+    - float: The partial width of the phi' boson decaying into U(1)T3R gauge boson.
+
+    """
     kin_space = 1 - (2 * gauge_mass) ** 2 / phi_mass**2
     if kin_space < 0:
         return 0
@@ -17,6 +90,18 @@ def width_phi_to_gauge(phi_mass: float, gauge_mass: float, vev: float = 10) -> f
 
 
 def width_phi_to_sm_fermions(phi_mass: float, fermion_mass: float, vev: float = 10) -> float:
+    """
+    Calculate the partial width of the phi' boson decaying into SM fermions.
+
+    Parameters:
+    - phi_mass (float): The mass of the phi' boson.
+    - fermion_mass (float): The mass of the SM fermion.
+    - vev (float): The vacuum expectation value (default: 10).
+
+    Returns:
+    - float: The partial width of the phi' boson decaying into SM fermions.
+
+    """
     if phi_mass < 2 * fermion_mass:
         return 0
     main = (fermion_mass**2) * phi_mass / (16 * np.pi * vev**2)
@@ -25,6 +110,9 @@ def width_phi_to_sm_fermions(phi_mass: float, fermion_mass: float, vev: float = 
 
 
 def f(tau: float) -> float:
+    """
+    Auxiliary function for the loop integral.
+    """
     if tau > 1:
         return np.arcsin(1 / np.sqrt(tau)) ** 2
     elif tau < 1:
@@ -34,6 +122,16 @@ def f(tau: float) -> float:
 
 
 def loop_int(tau: float) -> float:
+    """
+    Calculate the loop integral for the decay width of the phi' boson.
+
+    Parameters:
+    - tau (float): four times mass squared ratio of the SM fermion to the phi' boson. \
+
+    Returns:
+    - float: The loop integral for the decay width of the phi' boson.
+
+    """
     return 1 + (1 - tau) * f(tau)
 
 
@@ -43,6 +141,23 @@ def width_phi_to_photons(
     alpha_em: float = 1 / 137,
     vev: float = 10,
 ) -> float:
+    """
+    Calculate the partial width of the phi' boson decaying into photons.
+
+    Parameters:
+    - phi_mass (float): The mass of the phi' boson.
+    - sm_fermions_data (pd.DataFrame): The dataframe containing the SM fermions data.
+        -- The dataframe should contain the following columns:
+            - mass (float): The mass of the SM fermion.
+            - charge (float): The charge of the SM fermion.
+            - baryon_number (float): The baryon number of the SM fermion.
+            - lepton_number (float): The lepton number of the SM fermion.
+    - alpha_em (float): The electromagnetic coupling constant (default: 1/137).
+    - vev (float): The vacuum expectation value (default: 10).
+
+    Returns:
+    - float: The partial width of the phi' boson decaying into photons.
+    """
     partial_sums = []
     main = (alpha_em**2) / (8 * (np.pi**3) * phi_mass * vev**2)
     for part, mass in sm_fermions_data.get("mass", {}).items():
@@ -61,9 +176,23 @@ def width_phi_to_photons(
 
 
 def width_phi_to_gluons(
-    phi_mass: float, quark_masses: list, alpha_s: float = 0.118, vev: float = 10
+    phi_mass: float,
+    quark_masses: list,
+    alpha_s: float = 0.118,
+    vev: float = 10,
 ) -> float:
+    """
+    Calculate the partial width of the phi' boson decaying into gluons.
 
+    Parameters:
+    - phi_mass (float): The mass of the phi' boson.
+    - quark_masses (list): The list of masses of the SM quarks.
+    - alpha_s (float): The strong coupling constant (default: 0.118).
+    - vev (float): The vacuum expectation value (default: 10).
+
+    Returns:
+    - float: The partial width of the phi' boson decaying into gluons.
+    """
     main = (alpha_s**2) / (4 * np.pi**3 * phi_mass * vev**2)
     partial_sum = []
     for mass in quark_masses:
@@ -82,6 +211,26 @@ def get_all_widths(
     alpha_s: float = 0.118,
     vev: float = 10,
 ) -> dict:
+    """
+    Calculate the partial widths of the phi' boson decaying into all possible final states.
+
+    Parameters:
+        - phi_mass (float): The mass of the phi' boson.
+        - gauge_mass (float): The mass of the gauge particle.
+        - sm_fermions_data (pd.DataFrame): Dataframe containing information about Standard Model fermions.
+            -- The dataframe should contain the following columns:
+                - mass (float): The mass of the SM fermion.
+                - charge (float): The charge of the SM fermion.
+                - baryon_number (float): The baryon number of the SM fermion.
+                - lepton_number (float): The lepton number of the SM fermion.
+        - alpha_em (float, optional): The electromagnetic coupling constant. Defaults to 1/137.
+        - alpha_s (float, optional): The strong coupling constant. Defaults to 0.118.
+        - vev (float, optional): The vacuum expectation value. Defaults to 10.
+
+    Returns:
+        dict: A dictionary containing the
+
+    """
     widths = {}
 
     fermion_masses = sm_fermions_data.get("mass", {})
@@ -134,6 +283,26 @@ def get_all_branching_ratios(
     alpha_s: float = 0.118,
     vev: float = 10,
 ) -> dict:
+    """
+    Calculate the branching ratios of the phi' boson decaying into all possible final states.
+
+    Parameters:
+        - phi_mass (float): The mass of the phi' boson.
+        - gauge_mass (float): The mass of the gauge particle.
+        - sm_fermions_data (pd.DataFrame): Dataframe containing information about Standard Model fermions.
+            -- The dataframe should contain the following columns:
+                - mass (float): The mass of the SM fermion.
+                - charge (float): The charge of the SM fermion.
+                - baryon_number (float): The baryon number of the SM fermion.
+                - lepton_number (float): The lepton number of the SM fermion.
+        - alpha_em (float, optional): The electromagnetic coupling constant. Defaults to 1/137.
+        - alpha_s (float, optional): The strong coupling constant. Defaults to 0.118.
+        - vev (float, optional): The vacuum expectation value. Defaults to 10.
+
+    Returns:
+        dict: A dictionary containing the branching ratios of the phi' boson decaying into all possible final states.
+
+    """
     widths = get_all_widths(
         phi_mass=phi_mass,
         gauge_mass=gauge_mass,
@@ -153,7 +322,7 @@ def calculate_branching_ratios(
     alpha_s: float = 0.118,
     vev: float = 10,
     n_points: int = 1000,
-    plot: bool = True,
+    plot: bool = False,
     file_name: str = "",
 ):
     if file_name == "":
@@ -235,102 +404,29 @@ def calculate_branching_ratios(
     return branching_ratios
 
 
-def main():
-    sm_fermions = {
-        "tops": {
-            "mass": 172.76,
-            "charge": 2 / 3,
-            "baryon_number": 1 / 3,
-            "lepton_number": 0,
-        },
-        "bottoms": {
-            "mass": 4.18,
-            "charge": -1 / 3,
-            "baryon_number": 1 / 3,
-            "lepton_number": 0,
-        },
-        "taus": {
-            "mass": 1.77686,
-            "charge": -1,
-            "baryon_number": 0,
-            "lepton_number": 1,
-        },
-        "charms": {
-            "mass": 1.27,
-            "charge": 2 / 3,
-            "baryon_number": 1 / 3,
-            "lepton_number": 0,
-        },
-        "stranges": {
-            "mass": 0.096,
-            "charge": -1 / 3,
-            "baryon_number": 1 / 3,
-            "lepton_number": 0,
-        },
-        "muons": {
-            "mass": 0.105658,
-            "charge": -1,
-            "baryon_number": 0,
-            "lepton_number": 1,
-        },
-        "ups": {
-            "mass": 0.0023,
-            "charge": 2 / 3,
-            "baryon_number": 1 / 3,
-            "lepton_number": 0,
-        },
-        "downs": {
-            "mass": 0.0048,
-            "charge": -1 / 3,
-            "baryon_number": 1 / 3,
-            "lepton_number": 0,
-        },
-        "electrons": {
-            "mass": 0.000511,
-            "charge": -1,
-            "baryon_number": 0,
-            "lepton_number": 1,
-        },
-        # "neutrino_e": {"mass": 0, "charge": 0, "baryon_number": 0, "lepton_number": 1},
-        # "neutrino_mu": {"mass": 0, "charge": 0, "baryon_number": 0, "lepton_number": 1},
-        # "neutrino_tau": {"mass": 0, "charge": 0, "baryon_number": 0, "lepton_number": 1},
-    }
-
+if __name__ == "__main__":
     alpha_em = 1 / 137
     alpha_s = 0.118
     vev = 200
 
-    fer_data = pd.DataFrame(sm_fermions).T
-
     df1 = calculate_branching_ratios(
         gauge_boson_mass=0.0,
-        sm_fermions_df=fer_data,
+        sm_fermions_df=df_sm_fermions,
         alpha_em=alpha_em,
         alpha_s=alpha_s,
         vev=vev,
         n_points=1000,
+        plot=True,
     )
     df2 = calculate_branching_ratios(
         gauge_boson_mass=180,
-        sm_fermions_df=fer_data,
+        sm_fermions_df=df_sm_fermions,
         alpha_em=alpha_em,
         alpha_s=alpha_s,
         vev=vev,
         n_points=1000,
+        plot=True,
     )
 
     df1.to_csv("data/phi_decay_branching_ratios_gauge_mass_0.0.csv")
     df2.to_csv("data/phi_decay_branching_ratios_gauge_mass_180.csv")
-
-    get_all_branching_ratios(
-        phi_mass=80,  # GeV
-        gauge_mass=0.0,  # GeV
-        sm_fermions_data=fer_data,
-        alpha_em=alpha_em,
-        alpha_s=alpha_s,
-        vev=vev,
-    )
-
-
-if __name__ == "__main__":
-    main()
