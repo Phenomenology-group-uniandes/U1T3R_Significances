@@ -122,7 +122,7 @@ def get_all_widths(
         mass for mass in sm_fermions_data[sm_fermions_data["baryon_number"] != 0].get("mass", {})
     ]
     widths[r"$g g$"] = width_phi_to_gluons(phi_mass, quark_masses, alpha_s, vev)
-    # widths[r"$A^\prime A^\prime$"] = width_phi_to_gauge(phi_mass, gauge_mass, vev)
+    widths[r"$A^\prime A^\prime$"] = width_phi_to_gauge(phi_mass, gauge_mass, vev)
     return widths
 
 
