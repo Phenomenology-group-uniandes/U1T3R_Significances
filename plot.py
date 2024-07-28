@@ -226,8 +226,8 @@ def calculate_branching_ratios(
         plt.gca().yaxis.set_minor_locator(y_subticks)
         # plt.grid(which="both")
         plt.grid(True)
-        plt.savefig(f"{file_name}.pdf")
-        plt.savefig(f"{file_name}.png")
+        plt.savefig(f"pdfs/{file_name}.pdf")
+        plt.savefig(f"images/{file_name}.png")
         plt.show()
 
     branching_ratios["phi_mass"] = phi_mass_values
@@ -319,8 +319,8 @@ def main():
         n_points=1000,
     )
 
-    df1.to_csv("phi_decay_branching_ratios_gauge_mass_0.0.csv")
-    df2.to_csv("phi_decay_branching_ratios_gauge_mass_180.csv")
+    df1.to_csv("data/phi_decay_branching_ratios_gauge_mass_0.0.csv")
+    df2.to_csv("data/phi_decay_branching_ratios_gauge_mass_180.csv")
 
     get_all_branching_ratios(
         phi_mass=80,  # GeV
