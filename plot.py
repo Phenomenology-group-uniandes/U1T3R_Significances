@@ -206,7 +206,7 @@ def width_phi_to_gluons(
 def get_all_widths(
     phi_mass: float,
     gauge_mass: float,
-    sm_fermions_data: pd.DataFrame,
+    sm_fermions_data: pd.DataFrame = df_sm_fermions,
     alpha_em: float = 1 / 137,
     alpha_s: float = 0.118,
     vev: float = 10,
@@ -278,7 +278,7 @@ def get_all_widths(
 def get_all_branching_ratios(
     phi_mass: float,
     gauge_mass: float,
-    sm_fermions_data: pd.DataFrame,
+    sm_fermions_data: pd.DataFrame = df_sm_fermions,
     alpha_em: float = 1 / 137,
     alpha_s: float = 0.118,
     vev: float = 10,

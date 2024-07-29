@@ -354,23 +354,25 @@ Lnewgauge := gs*(Xubar.Ga[mu].T[m].Xu+Xdbar.Ga[mu].T[m].Xd).G[mu,m] + ee*(2/3)*X
 	-HC[(gw/Sqrt[2])*Cos[thetauL]*Cos[thetadL] tbar. Ga[mu]. ProjM. b. W[mu]]\
 	-(gw/Sqrt[2])*Sin[thetauL]*Sin[thetadL] Xubar. Ga[mu]. ProjM. Xd. W[mu]\
 	-HC[(gw/Sqrt[2])*Sin[thetauL]*Sin[thetadL] Xubar. Ga[mu]. ProjM. Xd. W[mu]]\
-	+Xubar.Ga[mu].((-ee*((Sin[thetauL]*Cos[thetauL])/(sw*cw))*(1/2-2/3*sw2)).ProjM+(-ee*((Sin[thetauR]*Cos[thetauR])/(sw*cw))*(-2/3*sw2)).ProjP).t.Z[mu];
+	+Xubar.Ga[mu].((-ee*((Sin[thetauL]*Cos[thetauL])/(sw*cw))*(1/2-2/3*sw2)).ProjM+(-ee*((Sin[thetauR]*Cos[thetauR])/(sw*cw))*(-2/3*sw2)).ProjP).t.Z[mu]\
+	+HC[Xubar.Ga[mu].((-ee*((Sin[thetauL]*Cos[thetauL])/(sw*cw))*(1/2-2/3*sw2)).ProjM+(-ee*((Sin[thetauR]*Cos[thetauR])/(sw*cw))*(-2/3*sw2)).ProjP).t.Z[mu]]\;
 
 
 
-
-
-
-LyukH := Xubar. ((C1Lu+C2Lu).ProjM+(C1Lu-C2Lu).ProjP). t. H + Xdbar. ((C1Ld+C2Ld).ProjM+(C1Ld-C2Ld).ProjP). b. H\
+LyukH := Xubar. ((C1Lu+C2Lu).ProjM+(C1Lu-C2Lu).ProjP). t. H\ 
+	+ Xdbar. ((C1Ld+C2Ld).ProjM+(C1Ld-C2Ld).ProjP). b. H\
 	+Xlbar. ((C1Ll+C2Ll).ProjM+(C1Ll-C2Ll).ProjP). mu. H\
-	+HC[Xubar. ((C1Lu+C2Lu).ProjM+(C1Lu-C2Lu).ProjP). t. H]+HC[Xdbar. ((C1Ld+C2Ld).ProjM+(C1Ld-C2Ld).ProjP). b. H]\
+	+HC[Xubar. ((C1Lu+C2Lu).ProjM+(C1Lu-C2Lu).ProjP). t. H]
+	+HC[Xdbar. ((C1Ld+C2Ld).ProjM+(C1Ld-C2Ld).ProjP). b. H]\
 	+HC[Xlbar. ((C1Ll+C2Ll).ProjM+(C1Ll-C2Ll).ProjP). mu. H];
 
 
 
-Lyukpi := (MT/(Sqrt[2]*pivev)) tbar.t.pi+(MB/(Sqrt[2]*pivev)) bbar.b.pi+(MMU/(Sqrt[2]*pivev)) mubar.mu.pi\
-	+(MTA/(Sqrt[2]*pivev)) tabar.ta.pi + tbar. ((C1Ru+C2Ru).ProjM+(C1Ru-C2Ru).ProjP). Xu.pi\
-	+HC[tbar. ((C1Ru+C2Ru).ProjM+(C1Ru-C2Ru).ProjP). Xu.pi]\
+Lyukpi := (MT/(Sqrt[2]*pivev)) tbar.t.pi\
+	+(MB/(Sqrt[2]*pivev)) bbar.b.pi\
+	+(MMU/(Sqrt[2]*pivev)) mubar.mu.pi\
+	+(MTA/(Sqrt[2]*pivev)) tabar.ta.pi\
+	+ tbar. ((C1Ru+C2Ru).ProjM+(C1Ru-C2Ru).ProjP). Xu.pi+HC[tbar. ((C1Ru+C2Ru).ProjM+(C1Ru-C2Ru).ProjP). Xu.pi]\
 	+ bbar. ((C1Rd+C2Rd).ProjM+(C1Rd-C2Rd).ProjP). Xd.pi+HC[bbar. ((C1Rd+C2Rd).ProjM+(C1Rd-C2Rd).ProjP). Xd.pi]\
 	+mubar. ((C1Rl+C2Rl).ProjM+(C1Rl-C2Rl).ProjP). Xl.pi+HC[mubar. ((C1Rl+C2Rl).ProjM+(C1Rl-C2Rl).ProjP). Xl.pi];
 
